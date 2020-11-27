@@ -14,7 +14,7 @@ from django.core.wsgi import get_wsgi_application
 
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'moviereview.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'team1site.settings')
 
 
 
