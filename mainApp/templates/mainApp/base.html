@@ -30,7 +30,7 @@
             <a class="nav-link" href="{% url 'blog:blog' %}">Blog <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'mainApp:home' %}">Courses</a>
+            <a class="nav-link" href="{% url 'courses:courses_home' %}">Courses</a>
           </li>
           
           {% if user.is_authenticated %}
