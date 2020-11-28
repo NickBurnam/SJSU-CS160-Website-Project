@@ -5,9 +5,9 @@
 
 
 <div class="container">
-	<h1> The Blog </h1>
+	<h1> The Blog  - {{ cat }}</h1>
 	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	Categories
+		Categories
 	</a>
 	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		<a class="dropdown-item" href="{% url 'blog:category' 'Django tutorial' %}">Django tutorial</a>
@@ -17,19 +17,18 @@
 		<a class="dropdown-item" href="{% url 'blog:category' 'Miscellaneous' %}">Miscellaneous</a>
 	</div>
 	<ul class="list-group">
-	{% for x in object_list %}
+	{% for x in category_post %}
 		<li class="list-group-item"><a href="{% url 'blog:article-detail' x.pk %}"><h3>{{ x.title }}</h3></a><br/>
 		Posted by {{ x.author }} - <small>
 			<a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a>
 			<a href="{% url 'blog:delete_post' x.pk %}">(Delete)</a>
 			</small><br/>
-		Category - <a href="{% url 'blog:category' x.category %}">{{ x.category }}</a><br />
+		Category - {{ x.category }}<br />
 		{{ x.date }}<br/>
 		<a href="{% url 'blog:article-detail' x.pk %}">
 			<img src="{{ x.image }}" class="img-fluid">
 		</a><br/>
-		{{ x.body }}
-		</li>
+		{{ x.body }}</li>
 	{% endfor %}
 	</ul>
 </div>

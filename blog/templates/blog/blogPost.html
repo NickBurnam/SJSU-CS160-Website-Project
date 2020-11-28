@@ -1,0 +1,21 @@
+{% extends 'mainApp/base.html' %}
+
+
+{% block content %}
+<div class="container">
+	<h1>{{ object.title }}</h1>
+	<small> By: {{ object.author }} - 
+		<a href="{% url 'blog:edit_post' object.pk %}">(Edit)</a>
+		<a href="{% url 'blog:delete_post' object.pk %}">(Delete)</a>
+	</small><br />
+	Category - <a href="{% url 'blog:category' object.category %}">{{ object.category }}</a><br />
+	{{ object.date }}
+	<hr>
+	<br />
+	<img src="{{ object.image }}"><br />
+	{{ object.body }}
+	<br />
+	<br />
+	<a href="{% url 'blog:blog' %}">Back</a>
+</div>
+{% endblock %}
