@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Notification(models.Model) :
+class Subscription(models.Model) :
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
-    last_notified = models.DateTimeField()    
+    last_notified = models.DateTimeField(blank=True, null=True)
