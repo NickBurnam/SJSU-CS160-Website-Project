@@ -4,7 +4,10 @@
 {% block content %}
 <div class="container">
 	<h1>{{ object.title }}</h1>
-	<small> By: {{ object.author }} - <a href="{% url 'blog:edit_post' object.pk %}">(Edit)</a></small><br />
+	<small> By: {{ object.author }} - 
+		<a href="{% url 'blog:edit_post' object.pk %}">(Edit)</a>
+		<a href="{% url 'blog:delete_post' object.pk %}">(Delete)</a>
+	</small><br />
 	{{ object.date }}
 	<hr>
 	<br />

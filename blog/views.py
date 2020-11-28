@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import BlogArticle 
+from django.urls import reverse_lazy
 
 # Create your views here.
 #def blogIndex(request):
@@ -9,6 +10,7 @@ from .models import BlogArticle
 class BlogView(ListView):
      model = BlogArticle
      template_name = 'blog/blogIndex.html'
+     ordering = ['-date']
 
 class BlogPostView(DetailView):
      model = BlogArticle
@@ -23,3 +25,8 @@ class EditPostView(UpdateView):
      model = BlogArticle
      template_name = 'blog/editBlogPost.html'
      fields = '__all__'
+
+class DeletePostView(DeleteView):
+     model = BlogArticle
+     template_name = 'blog/deleteBlogPost.html' 
+     success_url = reverse_lazy('blog:blog')

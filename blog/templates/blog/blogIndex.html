@@ -9,7 +9,10 @@
 	<ul>
 	{% for x in object_list %}
 		<li><a href="{% url 'blog:article-detail' x.pk %}">{{ x.title }}</a><br/>
-		Posted by {{ x.author }} - <small><a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a></small><br/>
+		Posted by {{ x.author }} - <small>
+			<a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a>
+			<a href="{% url 'blog:delete_post' x.pk %}">(Delete)</a>
+			</small><br/>
 		{{ x.date }}<br/>
 		<a href="{% url 'blog:article-detail' x.pk %}">
 			<img src="{{ x.image }}">
