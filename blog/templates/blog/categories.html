@@ -6,9 +6,19 @@
 
 <div class="container">
 	<h1> The Blog  - {{ cat }}</h1>
-	<ul>
+	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Categories
+	</a>
+	<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		<a class="dropdown-item" href="{% url 'blog:category' 'Django tutorial' %}">Django tutorial</a>
+		<div class="dropdown-divider"></div>
+		<a class="dropdown-item" href="{% url 'blog:category' 'News' %}">News</a>
+		<div class="dropdown-divider"></div>
+		<a class="dropdown-item" href="{% url 'blog:category' 'Miscellaneous' %}">Miscellaneous</a>
+	</div>
+	<ul class="list-group">
 	{% for x in category_post %}
-		<li><a href="{% url 'blog:article-detail' x.pk %}">{{ x.title }}</a><br/>
+		<li class="list-group-item"><a href="{% url 'blog:article-detail' x.pk %}">{{ x.title }}</a><br/>
 		Posted by {{ x.author }} - <small>
 			<a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a>
 			<a href="{% url 'blog:delete_post' x.pk %}">(Delete)</a>
@@ -16,7 +26,7 @@
 		Category - {{ x.category }}<br />
 		{{ x.date }}<br/>
 		<a href="{% url 'blog:article-detail' x.pk %}">
-			<img src="{{ x.image }}">
+			<img src="{{ x.image }}" class="img-fluid">
 		</a><br/>
 		{{ x.body }}</li>
 	{% endfor %}
