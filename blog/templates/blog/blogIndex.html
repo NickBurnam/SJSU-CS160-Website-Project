@@ -19,10 +19,15 @@
 	<ul class="list-group">
 	{% for x in object_list %}
 		<li class="list-group-item"><a href="{% url 'blog:article-detail' x.pk %}"><h3>{{ x.title }}</h3></a><br/>
-		Posted by {{ x.author }} - <small>
-			<a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a>
-			<a href="{% url 'blog:delete_post' x.pk %}">(Delete)</a>
+		Posted by {{ x.author }}
+		{% if user.is_authenticated %}
+			{% if user.id == x.author.id %}
+			<small> - 
+				<a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a>
+				<a href="{% url 'blog:delete_post' x.pk %}">(Delete)</a>
 			</small><br/>
+			{% endif %}
+		{% endif %}
 		Category - <a href="{% url 'blog:category' x.category %}">{{ x.category }}</a><br />
 		{{ x.date }}<br/>
 		<a href="{% url 'blog:article-detail' x.pk %}">

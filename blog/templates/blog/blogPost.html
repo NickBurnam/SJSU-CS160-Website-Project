@@ -4,10 +4,15 @@
 {% block content %}
 <div class="container">
 	<h1>{{ object.title }}</h1>
-	<small> By: {{ object.author }} - 
-		<a href="{% url 'blog:edit_post' object.pk %}">(Edit)</a>
-		<a href="{% url 'blog:delete_post' object.pk %}">(Delete)</a>
-	</small><br />
+	Posted by {{ object.author }}
+	{% if user.is_authenticated %}
+		{% if user.id == object.author.id %}
+		<small> - 
+			<a href="{% url 'blog:edit_post' object.pk %}">(Edit)</a>
+			<a href="{% url 'blog:delete_post' object.pk %}">(Delete)</a>
+		</small><br/>
+		{% endif %}
+	{% endif %}
 	Category - <a href="{% url 'blog:category' object.category %}">{{ object.category }}</a><br />
 	{{ object.date }}
 	<hr>
