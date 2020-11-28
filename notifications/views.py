@@ -52,8 +52,6 @@ def notify_subscribers(request, pageId) :
         if(curSubUser.email != ''):
             print("sending email to: " + curSubUser.email)
 
-            print(os.environ.get('DB_USER') )
-
             # send_mail(
             #     'Subscribed Article has been updated',
             #     'This is a test notification',
