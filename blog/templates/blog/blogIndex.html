@@ -5,7 +5,18 @@
 
 
 <div class="container">
-	<h1> This is a placeholder page for the blog index</h1>
+	<h1> The Blog </h1>
+	<ul>
+	{% for x in object_list %}
+		<li><a href="{% url 'blog:article-detail' x.pk %}">{{ x.title }}</a><br/>
+		Posted by {{ x.author }}<br/>
+		{{ x.date }}<br/>
+		<a href="{% url 'blog:article-detail' x.pk %}">
+			<img src="{{ x.image }}">
+		</a><br/>
+		{{ x.body }}</li>
+	{% endfor %}
+	</ul>
 </div>
 
 
