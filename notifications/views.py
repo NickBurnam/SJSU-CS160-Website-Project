@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from mainApp.models import Page
 from django.http import HttpResponse
+from django.core.mail import send_mail
 from .models import *
+import os
 
 # Create your views here.
 
@@ -37,5 +39,32 @@ def add_subscription(request, pageId) :
         return HttpResponse("<h1>You need to log in first</h1>")
         return redirect("accounts:login")
 
+
+def notify_subscribers(request, pageId) :
+
+    #TO DO: check that request is from a staff user
+    
+    subs = Subscription.objects.filter(id=pageId)
+
+    for curSub in Subscription.objects.filter(page_id=pageId):
+        curSubUser = User.objects.get(id=curSub.user_id)
+        
+        if(curSubUser.email != ''):
+            print("sending email to: " + curSubUser.email)
+
+            print(os.environ.get('DB_USER') )
+
+            # send_mail(
+            #     'Subscribed Article has been updated',
+            #     'This is a test notification',
+            #     'team1admin@someDomain.com',
+            #     [curSubUser.email],
+            #     fail_silently=False
+            # )
+        
+
+    return HttpResponse("<h1>Notifying subscribers...</h1>")
+
 def test(request):
     return HttpResponse("<h1>This is a test response</h1>")
+

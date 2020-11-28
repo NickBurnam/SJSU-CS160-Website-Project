@@ -126,3 +126,12 @@ DATABASES['default'].update(db_from_env)
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+#Email Settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'webdevwithdjango@gmail.com'
+#EMAIL_HOST_PASSWORD = 'placeholder'
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = True
+#EMAIL_USE_SSL = False
