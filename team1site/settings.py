@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'mainApp', #our new main app
     #'main', #the original move review site app
+    'courses',
     'accounts',
     'blog',
     'django.contrib.admin',
