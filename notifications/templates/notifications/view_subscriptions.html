@@ -1,0 +1,20 @@
+{% extends 'mainApp/base.html' %}
+
+
+{% block content %}
+
+
+<div class="container">
+    <ul class="list-group">
+        {% for curSub in subscriptions %}
+            <li class="list-group-item">
+                <div>{{curSub.page.title}}</div>
+                <div><a href="{% url 'notifications:delete_subscription' curSub.id %}">Remove Subscription</a></div>
+            </li>            
+        {% endfor %}
+
+    </ul>
+</div>
+
+
+{% endblock %}

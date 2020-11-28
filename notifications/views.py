@@ -7,42 +7,59 @@ import os
 
 # Create your views here.
 
-def add_subscription(request, pageId) :
+def view_subscriptions(request):
 
-    #return HttpResponse("<h1>Test 1</h1>")
+    if request.user.is_authenticated:
+        subs = Subscription.objects.all().filter(user=request.user)
+        
+        # for curSub in subs:
+        #     print( 'id: {} pageId: {} userId: {}'.format( curSub.id, curSub.page_id, curSub.user_id))
+
+        return render(request, 'notifications/view_subscriptions.html', {'subscriptions': subs})
+    else:
+        return redirect("accounts:login")
+
+def add_subscription(request, pageId) :
 
     if request.user.is_authenticated:
         page = Page.objects.get(id=pageId)
-        #to do: validate that this retrieved a page?
-
-        sub = 0
-
-        #return HttpResponse("<h1>Test 2</h1>")
+        #TODO: validate that this retrieved a page?
 
         try:
             sub = Subscription.objects.get(page=page, user=request.user)
-            return HttpResponse("<h1>You are already subscribed</h1>")
+            #user is already subscribed, nothing to do
         except Subscription.DoesNotExist:
             sub = Subscription()
             sub.user = request.user
             sub.page = page
-
             sub.save()
-            return HttpResponse("<h1>You have been subscribed to this page!.</h1>")
-
-        #TO DO: check if there's an existing subscription to this page for the current user.
-
-        #TO DO: if not, create a new instance of the class, then save.
-
-        return render(request, 'notifications/add_subscription.html')
+        return redirect("notifications:view_subscriptions")
     else:
-        return HttpResponse("<h1>You need to log in first</h1>")
         return redirect("accounts:login")
 
+def delete_subscription(request, subId):
+    
+    if request.user.is_authenticated:
+        
+        try:
+            sub = Subscription.objects.get(id=subId, user=request.user)
+
+            if sub.user == request.user:
+                sub.delete()
+                return redirect("notifications:view_subscriptions")
+            else:
+                return HttpResponse("<h1>You are *not*  correct user. No removal.</h1>")
+            return HttpResponse("<h1>Subscription has been removed</h1>")
+
+        except Subscription.DoesNotExist:
+            return HttpResponse("<h1>No subscription to remove.</h1>")        
+    else:
+        return redirect("accounts:login")
 
 def notify_subscribers(request, pageId) :
 
-    #TO DO: check that request is from a staff user
+    if not request.user.is_staff:
+        return HttpResponse("<h1>You are not permitted to perform this action</h1>")
     
     subs = Subscription.objects.filter(id=pageId)
 
@@ -51,6 +68,8 @@ def notify_subscribers(request, pageId) :
         
         if(curSubUser.email != ''):
             print("sending email to: " + curSubUser.email)
+
+            #uncomment this when ready
 
             # send_mail(
             #     'Subscribed Article has been updated',
@@ -63,6 +82,4 @@ def notify_subscribers(request, pageId) :
 
     return HttpResponse("<h1>Notifying subscribers...</h1>")
 
-def test(request):
-    return HttpResponse("<h1>This is a test response</h1>")
 
