@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     #'main', #the original move review site app
     'accounts',
     'blog',
+    'notifications',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
