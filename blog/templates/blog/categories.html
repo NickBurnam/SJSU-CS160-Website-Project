@@ -5,20 +5,15 @@
 
 
 <div class="container">
-	<h1> The Blog </h1>
-	<h2> Categories:  
-		<a href="{% url 'blog:category' 'Django tutorial' %}">Django tutorial, </a>
-		<a href="{% url 'blog:category' 'News' %}">News, </a>
-		<a href="{% url 'blog:category' 'Miscellaneous' %}">Miscellaneous </a>
-	</h2>
+	<h1> The Blog  - {{ cat }}</h1>
 	<ul>
-	{% for x in object_list %}
+	{% for x in category_post %}
 		<li><a href="{% url 'blog:article-detail' x.pk %}">{{ x.title }}</a><br/>
 		Posted by {{ x.author }} - <small>
 			<a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a>
 			<a href="{% url 'blog:delete_post' x.pk %}">(Delete)</a>
 			</small><br/>
-		Category - <a href="{% url 'blog:category' x.category %}">{{ x.category }}</a><br />
+		Category - {{ x.category }}<br />
 		{{ x.date }}<br/>
 		<a href="{% url 'blog:article-detail' x.pk %}">
 			<img src="{{ x.image }}">
