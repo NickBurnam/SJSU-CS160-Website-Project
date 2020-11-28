@@ -2,14 +2,16 @@
 
 
 {% block content %}
-
-<h1>{{ object.title }}</h1>
-<small> By: {{ object.author }} </small><br/>
-<hr>
-<br/>
-<img src="{{ object.image }}"><br/>
-{{ object.body }}
-<br/>
-<br/>
-<a href="{% url 'blog:blog' %}">Back</a>
+<div class="container">
+	<h1>{{ object.title }}</h1>
+	<small> By: {{ object.author }} - <a href="{% url 'blog:edit_post' object.pk %}">(Edit)</a></small><br />
+	{{ object.date }}
+	<hr>
+	<br />
+	<img src="{{ object.image }}"><br />
+	{{ object.body }}
+	<br />
+	<br />
+	<a href="{% url 'blog:blog' %}">Back</a>
+</div>
 {% endblock %}

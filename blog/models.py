@@ -14,4 +14,5 @@ class BlogArticle(Page) :
         return self.title + ' | ' + str(self.author)
 
     def get_absolute_url(self):
-        return reverse('blog:article-detail', args=(str(self.id)) )
+        return reverse('blog:article-detail', args=(str(self.pk)) )
+        #return self.get_absolute_url()

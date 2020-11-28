@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
-from .models import BlogArticle
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from .models import BlogArticle 
 
 # Create your views here.
 #def blogIndex(request):
@@ -17,4 +17,9 @@ class BlogPostView(DetailView):
 class AddBlogPostView(CreateView):
      model = BlogArticle
      template_name = 'blog/addBlogPost.html'
+     fields = '__all__'
+
+class EditPostView(UpdateView):
+     model = BlogArticle
+     template_name = 'blog/editBlogPost.html'
      fields = '__all__'
