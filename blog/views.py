@@ -19,7 +19,6 @@ class BlogView(ListView):
     template_name = "blog/blogIndex.html"
     ordering = ["-date"]
 
-
 class BlogPostView(DetailView):
     model = BlogArticle
     template_name = "blog/blogPost.html"
