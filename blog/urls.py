@@ -6,7 +6,7 @@ app_name = "blog"
 
 urlpatterns = [
     path('', BlogView.as_view(), name="blog"),
-    path('blog/', BlogView.as_view(ordering='-date'), name="blog"),
+    path('blog/', BlogView.as_view(ordering='date'), name="blog"),
     path('blog-sort-by-title/', BlogView.as_view(ordering='title'), name="blog_title"),
     path('article/<int:pk>', BlogPostView.as_view(), name="article-detail"),
     path('addPost/', AddBlogPostView.as_view(), name="add_post"),
