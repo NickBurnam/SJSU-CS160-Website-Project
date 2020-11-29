@@ -13,7 +13,7 @@
 		</small><br/>
 		{% endif %}
 	{% endif %}
-	Category - <a href="{% url 'blog:category' object.category %}">{{ object.category }}</a><br />
+	Category - <a href="{% url 'blog:category' object.category '-date' %}">{{ object.category }}</a><br />
 	{{ object.date }}
 	<hr>
 	<br />

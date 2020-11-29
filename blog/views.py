@@ -42,8 +42,8 @@ class DeletePostView(DeleteView):
     success_url = reverse_lazy("blog:blog")
 
 
-def CategoryView(request, cat):
-    category_post = BlogArticle.objects.filter(category=cat)
+def CategoryView(request, cat, sort):
+    category_post = BlogArticle.objects.filter(category=cat).order_by(sort)
     return render(
-        request, "blog/categories.html", {"cat": cat, "category_post": category_post}
+        request, "blog/categories.html", {"cat": cat, "category_post": category_post, "sort": sort}
     )
