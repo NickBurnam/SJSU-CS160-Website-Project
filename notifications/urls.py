@@ -8,6 +8,5 @@ urlpatterns = [
     path('delete_subscription/<int:subId>/', views.delete_subscription, name="delete_subscription"),
     path('notify_subscribers/<int:pageId>/', views.notify_subscribers, name="notify_subscribers"),
     path('view_subscriptions/', views.view_subscriptions, name="view_subscriptions"),
-
     
 ]
