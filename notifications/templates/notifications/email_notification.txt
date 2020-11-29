@@ -1,1 +1,4 @@
-A page that you subscribed to has been updated! (TXT)
+One of your subscribed pages has been updated.
+
+Title: {{ title}}
+URL: {{pageURL}}

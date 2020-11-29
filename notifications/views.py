@@ -6,6 +6,8 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
 
+from django.urls import reverse
+
 from .models import *
 
 
@@ -81,27 +83,21 @@ def notify_subscribers(request, pageId) :
             from_email = 'webdevwithdjango@gmail.com'
             to = [curSubUser.email]
 
-            context = { 'page': curSub.page }
+
+            #I'm assuming that only blog articles are getting subscriptions with the pageURL handling.
+            context = { 
+                'title': curSub.page.title,
+                'pageURL':  request.build_absolute_uri(reverse('blog:article-detail', args=[curSub.page.id]) )
+            }
             plainContent = plainTemplate.render(context)
             htmlContent = htmlTemplate.render(context)
 
-            print(htmlContent)
+            #print(plainContent)
 
             msg = EmailMultiAlternatives(subject, plainContent, from_email, to)
             msg.attach_alternative(htmlContent, "text/html")
             msg.send()
 
-            # uncomment this when ready
-            # TODO use an HTML template for the email body?
-
-            # send_mail(
-            #     'Subscribed Article has been updated',
-            #     'This is a test notification',
-            #     'webdevwithdjango@gmail.com',
-            #     [curSubUser.email],
-            #     fail_silently=False
-            # )
-        
 
     return redirect("notifications:notify_result")
 
