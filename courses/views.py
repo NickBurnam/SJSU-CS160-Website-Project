@@ -60,8 +60,8 @@ def edit_review(request, course_id, review_id):
                 form = ReviewForm(request.POST, instance= review)
                 if form.is_valid():
                     data = form.save(commit = False)
-                    if(data.rating > 10) or (data.rating < 0):
-                         error = "Out or range. Please select rating from 0 to 10."
+                    if(data.rating > 5) or (data.rating < 0):
+                         error = "Out or range. Please select rating from 0 to 5."
                          return render(request, 'courses/editreview.html', {"error": error, "form": form})
                     else:
                         data.save()
