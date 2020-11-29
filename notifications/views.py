@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from mainApp.models import Page
 from django.http import HttpResponse
-from django.core.mail import send_mail
+
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
+
 from .models import *
-import os
+
 
 # Create your views here.
 
@@ -69,18 +73,38 @@ def notify_subscribers(request, pageId) :
         if(curSubUser.email != ''):
             print("sending email to: " + curSubUser.email)
 
-            #uncomment this when ready
-            #TODO use an HTML template for the email body?
+            plainTemplate = get_template('notifications/email_notification.txt')
+            htmlTemplate = get_template('notifications/email_notification.html')
+
+
+            subject = 'Subscribed page has been updated'
+            from_email = 'webdevwithdjango@gmail.com'
+            to = [curSubUser.email]
+
+            context = { 'page': curSub.page }
+            plainContent = plainTemplate.render(context)
+            htmlContent = htmlTemplate.render(context)
+
+            print(htmlContent)
+
+            msg = EmailMultiAlternatives(subject, plainContent, from_email, to)
+            msg.attach_alternative(htmlContent, "text/html")
+            msg.send()
+
+            # uncomment this when ready
+            # TODO use an HTML template for the email body?
 
             # send_mail(
             #     'Subscribed Article has been updated',
             #     'This is a test notification',
-            #     'team1admin@someDomain.com',
+            #     'webdevwithdjango@gmail.com',
             #     [curSubUser.email],
             #     fail_silently=False
             # )
         
 
-    return render(request, 'notifications/notifications_sent.html')
+    return redirect("notifications:notify_result")
 
+def notify_result(request):
+    return render(request, 'notifications/notifications_sent.html')
 
