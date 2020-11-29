@@ -18,7 +18,7 @@
 	<hr>
 	<br />
 	<img src="{{ object.image }}"><br />
-	{{ object.body }}
+	{{ object.body|safe }}
 	<br />
 	<br />
 	<a href="{% url 'blog:blog' %}">Back</a>
