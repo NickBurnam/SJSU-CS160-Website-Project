@@ -20,6 +20,8 @@ def details(request,id):
     reviews = Review.objects.filter(course=id).order_by("-comment")
 
     average = reviews.aggregate(Avg("rating"))["rating__avg"]
+    if average == None:
+        average = 0.0
     average = round(average,2)
     context= {
         "course":course,
