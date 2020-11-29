@@ -10,6 +10,13 @@
 	</small><br />
 	Category - <a href="{% url 'blog:category' object.category %}">{{ object.category }}</a><br />
 	{{ object.date }}
+
+
+    {% if user.is_authenticated %}
+		<br>
+		<a href="{% url 'notifications:add_subscription' object.id %}">Subscribe to this article</a>
+	{% endif %}
+	
 	<hr>
 	<br />
 	<img src="{{ object.image }}"><br />

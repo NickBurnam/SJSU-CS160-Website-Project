@@ -4,7 +4,18 @@
 {% block content %}
 
 
+
 <div class="container">
+
+    <h1>Content subscriptions</h1>
+
+    {% if subscriptions.count == 0 %}
+        <p>You're not subscribed to anything yet, but you'll see your subscriptions here after you do so. You'll receive an email notification when there's content changes.</p>
+    {% else %}
+        <p>These are the pages that you are currently subscribed to. You'll receive an email notfication when there's content changes to these.</p>
+    {% endif %}
+
+    
     <ul class="list-group">
         {% for curSub in subscriptions %}
             <li class="list-group-item">
