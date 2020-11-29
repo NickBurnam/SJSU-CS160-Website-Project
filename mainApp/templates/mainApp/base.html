@@ -41,15 +41,16 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="#">My Profile</a>
     
-              <div class="dropdown-divider"></div>
-              {% if user.id == 1 %}
+              {% if user.is_staff %}
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{% url 'blog:add_post' %}">Add Blog Post</a>
-              
+              {% endif %}
+
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'notifications:view_subscriptions' %}">Subscribed Items</a>
               
                 <div class="dropdown-divider"></div>
-              {% endif %}
+              
               <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
             </div>
           </li>
