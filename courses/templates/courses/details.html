@@ -24,7 +24,7 @@
                     <p> {{course.description}}</p>
                     <h5>Course Creator: {{ course.creator }}</h5>
                     <h5>Last Updated Date: {{ course.last_updated_date }}</h5>
-                    <h5>Rating: {{ course.average_rating }}</h5>
+                    <h5>Rating: {{ average }}/10</h5>
                 </div>
             </div>
         </div>
@@ -63,8 +63,10 @@
                             <div class="col-md-3">
                                 <h5 class="text-left">{{ review.user.username }}</h5>
                                 <h5>{{ review.rating }}</h5>
-                                
-
+                                {% if request.user == review.user %}
+                                <a href="{% url 'courses:edit_review' course.id review.id %}">Edit</a>
+                                <a href="{% url 'courses:delete_review' course.id review.id %}" onclick="return confirm('Are you sure you want to delete this?');">Delete</a>
+                                {% endif %}
                             </div>
                             <div class="col-md-9">
                                 <p>{{ review.comment }}</p>

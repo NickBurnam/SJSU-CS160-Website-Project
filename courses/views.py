@@ -17,10 +17,14 @@ def courseHome(request):
 
 def details(request,id):
     course = Course.objects.get(id=id)
-    reviews = Review.objects.filter(course=id)
+    reviews = Review.objects.filter(course=id).order_by("-comment")
+
+    average = reviews.aggregate(Avg("rating"))["rating__avg"]
+    average = round(average,2)
     context= {
         "course":course,
-        "reviews": reviews
+        "reviews": reviews,
+        "average":average
     }
     return render(request, 'courses/details.html',context)
 
@@ -38,7 +42,45 @@ def add_review(request, id):
                 data.save()
                 return redirect("courses:detail",id)
             else:
-                form.ReviewForm()
-            return render(request, 'courses/details.html', {"form",form})
+                form = ReviewForm()
+            return redirect("courses:detail",id)
     else:
         return redirect("accounts:login")
+
+def edit_review(request, course_id, review_id):
+    if request.user.is_authenticated:
+        course = Course.objects.get(id=course_id)
+        review = Review.objects.get(course = course, id= review_id)
+
+        if request.user == review.user:
+
+            if request.method == "POST":
+                form = ReviewForm(request.POST, instance= review)
+                if form.is_valid():
+                    data = form.save(commit = False)
+                    if(data.rating > 10) or (data.rating < 0):
+                         error = "Out or range. Please select rating from 0 to 10."
+                         return render(request, 'courses/editreview.html', {"error": error, "form": form})
+                    else:
+                        data.save()
+                        return redirect("courses:detail", course_id)
+            else:
+                form= ReviewForm(instance=review)
+            return render(request,'courses/editreview.html',{"form":form})
+
+        else:
+            return redirect("courses:detail",course_id)
+    else:
+        return redirect("accounts:login")
+
+def delete_review(request, course_id, review_id):
+    if request.user.is_authenticated:
+        course = Course.objects.get(id=course_id)
+        review = Review.objects.get(course = course, id= review_id)
+
+        if request.user == review.user:
+             review.delete()
+        return redirect("courses:detail",course_id)
+    else:
+        return redirect("accounts:login") 
+
