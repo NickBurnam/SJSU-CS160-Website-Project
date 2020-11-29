@@ -36,13 +36,15 @@ INSTALLED_APPS = [
     'courses',
     'accounts',
     'blog',
+    'notifications',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms'
+    'crispy_forms',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +128,17 @@ DATABASES['default'].update(db_from_env)
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+#Email Settings
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.environ.get("EMAIL_HOST_ADDRESS")
+EMAIL_PORT = os.environ.get("EMAIL_HOST_PORT")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+
+#EMAIL_USE_SSL = False

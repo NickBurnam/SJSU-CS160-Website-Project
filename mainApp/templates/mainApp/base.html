@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    {% load staticfiles %}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     
     <title>Team 1 Site - Web Dev with Django</title>
@@ -41,7 +41,16 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="#">My Profile</a>
     
+              {% if user.is_staff %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="{% url 'blog:add_post' %}">Add Blog Post</a>
+              {% endif %}
+
               <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'notifications:view_subscriptions' %}">Subscribed Items</a>
+              
+                <div class="dropdown-divider"></div>
+              
               <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
             </div>
           </li>

@@ -1,0 +1,4 @@
+One of your subscribed pages has been updated.
+
+Title: {{ title}}
+URL: {{pageURL}}
