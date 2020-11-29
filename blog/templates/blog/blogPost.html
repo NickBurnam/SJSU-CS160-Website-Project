@@ -15,6 +15,20 @@
 	{% endif %}
 	Category - <a href="{% url 'blog:category' object.category '-date' %}">{{ object.category }}</a><br />
 	{{ object.date }}
+
+
+    {% if user.is_authenticated %}
+		<br>
+		<a href="{% url 'notifications:add_subscription' object.id %}">Subscribe to this article</a>
+	{% endif %}
+
+	{% if user.is_staff %}
+		<br>
+		<a href="{% url 'notifications:notify_subscribers' object.id %}">
+			<button class="btn-danger btn-notify-subscribers" type="submit">Notify Subscribers</button>
+		</a>
+	{% endif %}	
+	
 	<hr>
 	<br />
 	<img src="{{ object.image }}"><br />
