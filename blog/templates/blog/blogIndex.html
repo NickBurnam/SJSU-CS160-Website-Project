@@ -54,7 +54,7 @@
 		<a href="{% url 'blog:article-detail' x.pk %}">
 			<img src="{{ x.image }}" class="img-fluid">
 		</a><br/>
-		{{ x.body|safe }}
+		{{ x.body|safe|truncatechars:248 }}
 		</li>
 	{% endfor %}
 	</ul>
