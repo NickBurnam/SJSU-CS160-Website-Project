@@ -17,10 +17,10 @@
                     <h3 class= "text-center">
                         {{course.name}}
                     </h3>
-                    <p> {{course.description}}</p>
+                    <p data-intro="Here's a description summary of the course."> {{course.description}}</p>
                     <h5>Course Creator: {{ course.creator }}</h5>
                     <h5>Last Updated Date: {{ course.last_updated_date }}</h5>
-                    <h5>Star Rating: {{ average }}/5</h5>
+                    <h5 data-intro="Here's the average user rating of this course.">Star Rating: {{ average }}/5</h5>
                 </div>
             </div>
         </div>
@@ -44,7 +44,8 @@
          <output name="amount" id="amount" for="rangeInput">0</output>
                 
                 <br>
-                <input type="submit" class="btn btn-danger" value="Add Review">
+                <input type="submit" class="btn btn-danger" value="Add Review" 
+                    data-intro="Add some text to your review, assign a score with the slider, and then post it here!">
             </form>
         </div>
     </div>
@@ -53,7 +54,7 @@
         <div class="card-body">
             <h3 class="text-center">Reviews</h3>
             {% for review in reviews %}
-                <div class="card" style="background-color: #f5eeee;">
+                <div class="card" style="background-color: #f5eeee;" data-intro="Here's all the individual user reviews for this course.">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3">
