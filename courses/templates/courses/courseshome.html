@@ -7,11 +7,11 @@
 <div class="container">
     <br>
     <div class="card" id= "backdrop">
-         <div class="card-body">
+         <div class="card-body" data-intro="Thumbnails of each course are here. Click on &quotRead More to view each information on a course&quot">
              <div class="row">
                  {% for course in courses %}
                  <div class="col-md-4">
-                     <div class="card">
+                     <div class="card" >
                          <div class="card-body">
                              <div class="text-center">
                              <img src="{{ course.image }}" alt="" class="img-fluid" width="100%">
