@@ -8,7 +8,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <!-- Intro.js Requirement -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intro.js@2.9.3/minified/introjs.min.css">
 
     {% load static %}
@@ -22,12 +21,6 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-white">
       <a class="navbar-brand" href="{% url 'mainApp:home' %}">Home</a>
-      <a  
-        class="navbar-brand"
-        href="javascript:introJs().setOption('showProgress', true).start();"
-        >Get a demo tour</a>
-      <a href='http://example.com/' data-intro='Hello step one!'>Profile</a>
-
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -36,10 +29,17 @@
         <ul class="navbar-nav mr-auto">
 
           <li class="nav-item">
-            <a id="step-one" class="nav-link" href="{% url 'blog:blog' %}">Blog <span class="sr-only">(current)</span></a>
+          <a  
+            class="nav-link"
+            href="javascript:introJs().setOption('showProgress', true).start();"
+          >Get a demo tour</a>
+        </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog:blog' %}" data-intro="This is blog">Blog <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a id="step-two" class="nav-link" href="{% url 'courses:courses_home' %}">Courses</a>
+            <a class="nav-link" href="{% url 'courses:courses_home' %}" data-intro="This is courses">Courses</a>
           </li>
           
           {% if user.is_authenticated %}
@@ -48,7 +48,7 @@
               {{ user.username }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a id="step-three" class="dropdown-item" href="#">My Profile</a>
+              <a class="dropdown-item" href="#">My Profile</a>
     
               {% if user.is_staff %}
                 <div class="dropdown-divider"></div>
@@ -56,7 +56,7 @@
               {% endif %}
 
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{% url 'notifications:view_subscriptions' %}">Subscribed Items</a>
+              <a class="dropdown-item" href="{% url 'notifications:view_subscriptions' %} ">Subscribed Items</a>
               
                 <div class="dropdown-divider"></div>
               
@@ -68,7 +68,7 @@
             <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
+            <a class="nav-link" href="{% url 'accounts:register' %}" data-intro="This is where you register">Register</a>
           </li>
           {% endif %}
 
@@ -78,8 +78,6 @@
       </div>
     </nav>
 
-    
-
     {% block content %}
 
     {% endblock %}
@@ -87,10 +85,8 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    
-
-
     <script src="https://cdn.jsdelivr.net/npm/intro.js@2.9.3/minified/intro.min.js"></script>
-    <script src="main.js"></script> 
+
   </body>
 
 </html>

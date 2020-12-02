@@ -19,7 +19,8 @@
 
     {% if user.is_authenticated %}
 		<br>
-		<a href="{% url 'notifications:add_subscription' object.id %}">Subscribe to this article</a>
+		<a href="{% url 'notifications:add_subscription' object.id %}" data-intro="Click on this link if you want email updates for this!">
+			Subscribe to this article</a>
 	{% endif %}
 
 	{% if user.is_staff %}
