@@ -44,35 +44,45 @@
 	</table>
 
 
-
-	<div class="card" id="backdrop">
-		<div class="card body">
+    <div class="card" id= "backdrop">
+		<div class="card-body" data-intro="Thumbnails of each course are here. Click on &quotRead More to view each information on a course&quot">
 			<div class="row">
-
 				{% for x in object_list %}
-					<div class="col-md-4 card card-body text center">
-						<div class="card-body text-center" style="margin:20px">
-						<a href="{% url 'blog:article-detail' x.pk %}"><h3>{{ x.title }}</h3></a><br/>
-						Posted by {{ x.author }} </br>
-						{% if user.is_staff %}
-							<small> - 
-								<a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a>
-								<a href="{% url 'blog:delete_post' x.pk %}">(Delete)</a>
-							</small><br/>
-						{% endif %}	
-						Category - <a href="{% url 'blog:category' x.category '-date' %}">{{ x.category }}</a><br />
-						{{ x.date }}<br/>
-						<a href="{% url 'blog:article-detail' x.pk %}">
-							<img src="{{ x.image }}" class="img-fluid">
-						</a><br/>
-						{{ x.body|safe|truncatechars:248 }}
+					<div class="col-md-4">
+						<div class="card blogcard" >
+							<div class="card-body">
+								<div class="text-center">
+
+
+								<a href="{% url 'blog:article-detail' x.pk %}"><h3>{{ x.title }}</h3></a><br/>
+								Posted by {{ x.author }} </br>
+								
+								{% if user.is_staff %}
+								<small> - 
+									<a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a>
+									<a href="{% url 'blog:delete_post' x.pk %}">(Delete)</a>
+								</small>
+								{% endif %}	
+								<br/>
+
+								Category - <a href="{% url 'blog:category' x.category '-date' %}">{{ x.category }}</a><br />
+
+								{{ x.date }}<br/>
+
+								<a href="{% url 'blog:article-detail' x.pk %}">
+									<img src="{{ x.image }}" class="img-fluid">
+								</a><br/>								
+
+								
+								</div>
+							</div>
 						</div>
 					</div>
 				{% endfor %}
-
 			</div>
 		</div>
-	</div>
+   </div>
+
 
 
 
