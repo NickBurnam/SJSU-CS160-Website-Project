@@ -44,35 +44,39 @@
 	</table>
 
 
+	<div class="grid">
+		{% for x in object_list %}
 
-	<div class="card" id="backdrop">
-		<div class="card body">
-			<div class="row">
+		<article class="blog-card">
+			<a href="{% url 'blog:article-detail' x.pk %}" class="text"><h3>{{ x.title }}</h3></a><br/>
+			<a href="{% url 'blog:article-detail' x.pk %}"><img src="{{ x.image }}"> </a>
 
-				{% for x in object_list %}
-					<div class="col-md-4 card card-body text center">
-						<div class="card-body text-center" style="margin:20px">
-						<a href="{% url 'blog:article-detail' x.pk %}"><h3>{{ x.title }}</h3></a><br/>
-						Posted by {{ x.author }} </br>
-						{% if user.is_staff %}
-							<small> - 
-								<a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a>
-								<a href="{% url 'blog:delete_post' x.pk %}">(Delete)</a>
-							</small><br/>
-						{% endif %}	
-						Category - <a href="{% url 'blog:category' x.category '-date' %}">{{ x.category }}</a><br />
-						{{ x.date }}<br/>
-						<a href="{% url 'blog:article-detail' x.pk %}">
-							<img src="{{ x.image }}" class="img-fluid">
-						</a><br/>
-						{{ x.body|safe|truncatechars:248 }}
-						</div>
-					</div>
-				{% endfor %}
+			<div class="text">
+				
 
+				Posted by {{ x.author }}
+				{% if user.is_staff %}
+				<small> - 
+					<a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a>
+					<a href="{% url 'blog:delete_post' x.pk %}">(Delete)</a>
+				</small>
+				{% endif %}	
+				<br/>
+				
+				Category - <a href="{% url 'blog:category' x.category '-date' %}">{{ x.category }}</a><br />
+				{{ x.date }}<br/>
+				
+				
 			</div>
-		</div>
+
+		  </article>
+
+
+		{% endfor %}
+
+
 	</div>
+
 
 
 
