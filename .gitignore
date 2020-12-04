@@ -115,3 +115,6 @@ GitHub.sublime-settings
 !.vscode/extensions.json 
 .history
 .vscode
+
+.DS_Store
+[Pp]ipfile*

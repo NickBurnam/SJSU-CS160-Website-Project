@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
+
+
 # Create your views here.
 # registration
 def register(request):
     if request.user.is_authenticated:
-        return redirect("main:home")
+        return redirect("mainApp:home")
     
     # if they are not logged in
     else:
@@ -24,7 +27,7 @@ def register(request):
                 # login the user
                 login(request, user)
 
-                return redirect("main:home")
+                return redirect("mainApp:home")
         else:
             form = RegistrationForm()
         return render(request, "accounts/register.html", {"form": form})
@@ -33,7 +36,7 @@ def register(request):
 # login
 def login_user(request):
     if request.user.is_authenticated:
-        return redirect("main:home")
+        return redirect("mainApp:home")
     else:
         if request.method == "POST":
             username = request.POST['username']
@@ -46,7 +49,7 @@ def login_user(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect("main:home")
+                    return redirect("mainApp:home")
                 else:
                     return render(request, 'accounts/login.html', {"error": "Your account has been disabled."})
             else:

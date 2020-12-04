@@ -1,0 +1,33 @@
+{% extends 'mainApp/base.html' %}
+
+
+{% block content %}
+
+
+<div class="container">
+    <br>
+    <div class="card" id= "backdrop">
+         <div class="card-body" data-intro="Thumbnails of each course are here. Click on &quotRead More to view each information on a course&quot">
+             <div class="row">
+                 {% for course in courses %}
+                 <div class="col-md-4">
+                     <div class="card" >
+                         <div class="card-body">
+                             <div class="text-center">
+                             <img src="{{ course.image }}" alt="" class="img-fluid" width="100%">
+                             <h4 class="text-center">{{course.name}}</h4>
+                             <div class="text-center">
+                             <i class="text-center">{{course.last_updated_date}}</i>
+                             </div>
+                             <a href="{% url 'courses:detail' course.id %}">Read More</a>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 {% endfor %}
+             </div>
+         </div>
+    </div>
+</div>
+
+{% endblock %}

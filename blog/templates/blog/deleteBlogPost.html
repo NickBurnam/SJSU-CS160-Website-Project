@@ -1,0 +1,14 @@
+{% extends 'mainApp/base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <h1>Delete {{ object.title }}</h1>
+    <br/>
+    <form method="POST">
+        {% csrf_token %}
+        <strong>Are you sure?</strong><br/><br/>
+        <button class="btn btn-success">Delete Post</button>
+    </form>
+</div>
+{% endblock %}

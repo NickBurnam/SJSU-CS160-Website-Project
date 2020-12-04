@@ -1,0 +1,64 @@
+{% extends 'mainApp/base.html' %}
+
+
+{% block content %}
+
+
+<div class="container">
+	<h1> The Blog  - {{ cat }}</h1>
+	<table style="width:20%">
+		<tr>
+		<td>
+		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Categories
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			  <a class="dropdown-item" href="{% url 'blog:category' 'Django tutorial' '-date' %}">Django tutorial</a>
+			  <div class="dropdown-divider"></div>
+			  <a class="dropdown-item" href="{% url 'blog:category' 'News' '-date' %}">News</a>
+			  <div class="dropdown-divider"></div>
+			  <a class="dropdown-item" href="{% url 'blog:category' 'Miscellaneous' '-date' %}">Miscellaneous</a>
+			</div>
+		  </div>
+		  <br/>
+		</td>
+		<td>
+		  <div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Sort By
+			</button>
+			<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			  <a class="dropdown-item" href="{% url 'blog:category' cat '-date' %}">Date</a>
+			  <div class="dropdown-divider"></div>
+			  <a class="dropdown-item" href="{% url 'blog:category' cat 'title' %}">Title</a>
+			</div>
+		  </div>
+		  <br/>
+		</td>
+		</tr>
+		</table>
+	<ul class="list-group">
+	{% for x in category_post %}
+		<li class="list-group-item"><a href="{% url 'blog:article-detail' x.pk %}"><h3>{{ x.title }}</h3></a><br/>
+			Posted by {{ x.author }}
+			{% if user.is_authenticated %}
+				{% if user.id == x.author.id %}
+				<small> - 
+					<a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a>
+					<a href="{% url 'blog:delete_post' x.pk %}">(Delete)</a>
+				</small><br/>
+				{% endif %}
+			{% endif %}
+		Category - <a href="{% url 'blog:category' x.category '-date' %}">{{ x.category }}</a><br />
+		{{ x.date }}<br/>
+		<a href="{% url 'blog:article-detail' x.pk %}">
+			<img src="{{ x.image }}" class="img-fluid">
+		</a><br/>
+		{{ x.body|safe }}</li>
+	{% endfor %}
+	</ul>
+</div>
+
+
+{% endblock %}

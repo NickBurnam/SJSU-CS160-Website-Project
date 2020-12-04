@@ -1,0 +1,31 @@
+{% extends 'mainApp/base.html' %}
+
+
+{% block content %}
+
+
+
+<div class="container">
+
+    <h1>Content subscriptions</h1>
+
+    {% if subscriptions.count == 0 %}
+        <p>You're not subscribed to anything yet, but you'll see your subscriptions here after you do so. You'll receive an email notification when there's content changes.</p>
+    {% else %}
+        <p>These are the pages that you are currently subscribed to. You'll receive an email notfication when there's content changes to these.</p>
+    {% endif %}
+
+    
+    <ul class="list-group" data-intro="These are the pages that you're currently subscribed for email notifications. You can remove any individual subscriptions here.">
+        {% for curSub in subscriptions %}
+            <li class="list-group-item">
+                <div>{{curSub.page.title}}</div>
+                <div><a href="{% url 'notifications:delete_subscription' curSub.id %}">Remove Subscription</a></div>
+            </li>            
+        {% endfor %}
+
+    </ul>
+</div>
+
+
+{% endblock %}

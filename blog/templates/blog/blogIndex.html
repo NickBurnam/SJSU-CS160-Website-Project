@@ -1,0 +1,88 @@
+{% extends 'mainApp/base.html' %}
+
+
+{% block content %}
+
+
+<div class="container">
+	<h1> The Blog </h1>
+	<table style="width:20%">
+	<tr>
+		<td>
+			<div class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false" data-intro="You can select a category of topics to filter on">
+					Categories
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<a class="dropdown-item" href="{% url 'blog:category' 'Django tutorial' '-date' %}">Django tutorial</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="{% url 'blog:category' 'News' '-date' %}">News</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="{% url 'blog:category' 'Miscellaneous' '-date' %}">Miscellaneous</a>
+				</div>
+			</div>
+
+			<br/>
+		</td>
+
+		<td>
+			<div class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" 
+				aria-haspopup="true" aria-expanded="false" data-intro="You change the sort order here.">
+					Sort By
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<a class="dropdown-item" href="{% url 'blog:blog' %}">Date</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="{% url 'blog:blog_title' %}">Title</a>
+				</div>
+			</div>
+			<br/>
+		</td>
+	</tr>
+	</table>
+
+
+	<div class="grid">
+		{% for x in object_list %}
+
+		<article class="blog-card">
+			<a href="{% url 'blog:article-detail' x.pk %}" class="text"><h3>{{ x.title }}</h3></a><br/>
+			<a href="{% url 'blog:article-detail' x.pk %}"><img src="{{ x.image }}"> </a>
+
+			<div class="text">
+				
+
+				Posted by {{ x.author }}
+				{% if user.is_staff %}
+				<small> - 
+					<a href="{% url 'blog:edit_post' x.pk %}">(Edit)</a>
+					<a href="{% url 'blog:delete_post' x.pk %}">(Delete)</a>
+				</small>
+				{% endif %}	
+				<br/>
+				
+				Category - <a href="{% url 'blog:category' x.category '-date' %}">{{ x.category }}</a><br />
+				{{ x.date }}<br/>
+				
+				
+			</div>
+
+		  </article>
+
+
+		{% endfor %}
+
+
+	</div>
+
+
+
+
+
+
+</div>
+
+
+{% endblock %}
